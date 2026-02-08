@@ -8,7 +8,7 @@
     "mouse-test": "electron mouse-test.js",
     "dist": "electron-builder"
   },
-  "author": "",
+  "author": "Clipboard Buddy Maintainer <noreply@example.invalid>",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
@@ -37,7 +37,8 @@
         "AppImage",
         "deb"
       ],
-      "category": "Utility"
+      "category": "Utility",
+      "icon": "clipboardBuddyMenuIcon.png"
     }
   }
 }

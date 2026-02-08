@@ -134,7 +134,7 @@ function createSettingsWindow() {
 
   settingsWindow = new BrowserWindow({
     width: 360,
-    height: 220,
+    height: 280,
     resizable: false,
     title: 'Clipboard Buddy Settings',
     webPreferences: {
