@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--
+  Popup window for Clipboard Buddy.
+  Shows recent clipboard text "above the line" and persistent snippets
+  "below the line". The + button promotes the current clipboard contents
+  into the persistent below-the-line list.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Clipboard Buddy</title>
+    <style>
+      :root {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color-scheme: light dark;
+      }
+
+      body {
+        margin: 0;
+        padding: 6px;
+        background: #ffffff;
+        color: #111111;
+        font-size: 13px;
+        overflow: hidden; /* prevent whole popup from scrolling */
+      }
+
+      h1 {
+        margin: 0 0 6px;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 2px 4px;
+        background: transparent;
+        border-radius: 0;
+        border: none;
+      }
+
+      .list-container {
+        border: none;
+        border-radius: 0;
+        max-height: 420px;
+        overflow: hidden; /* internal regions handle their own scrolling */
+        background: transparent;
+        box-shadow: none;
+        position: relative;
+        padding-bottom: 24px; /* space so + doesn't overlap last line */
+      }
+
+      .section-label {
+        display: none; /* visual simplicity; regions are implied by the line */
+      }
+
+      .separator {
+        height: 1px;
+        background: #111;
+        margin: 12px 10px;
+      }
+
+      .region {
+        max-height: 170px;
+        overflow-y: auto;
+        padding: 0 8px;
+      }
+
+      .region::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+      }
+
+      .region {
+        scrollbar-width: none; /* Firefox */
+      }
+
+      .item {
+        padding: 4px 8px;
+        cursor: pointer;
+        border-bottom: 1px solid #f1f3f7;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        background: #ffffff;
+        transition: background-color 0.1s ease-in-out;
+      }
+
+      .item:hover {
+        background: #eef2ff;
+      }
+
+      .item:last-child {
+        border-bottom: none;
+      }
+
+      .placeholder {
+        padding: 8px;
+        color: #888;
+        font-style: italic;
+      }
+
+      .item-row {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .item-text {
+        flex: 1;
+      }
+
+      /* Multiline entries: first-line preview text in blue */
+      .item-row.multiline .item-text {
+        color: #0057b8;
+      }
+
+      .item-buttons {
+        display: flex;
+        gap: 2px;
+      }
+
+      .item-button {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 11px;
+        padding: 0 2px;
+        color: #777;
+      }
+
+      .item-button:hover {
+        color: #c0392b;
+      }
+
+      .below-actions {
+        position: absolute;
+        right: 10px;
+        bottom: 4px;
+        font-size: 14px;
+        color: #555;
+      }
+
+      .below-actions button {
+        font-size: 20px;
+        padding: 0;
+        border-radius: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        width: auto;
+        height: auto;
+        line-height: 1;
+      }
+
+      .below-actions button:hover {
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="list-container">
+      <div id="above-list" class="region"></div>
+      <div class="separator"></div>
+      <div id="below-list" class="region"></div>
+      <div class="below-actions">
+        <button id="add-clipboard">+</button>
+      </div>
+    </div>
+    <script src="renderer.js"></script>
+  </body>
+</html>

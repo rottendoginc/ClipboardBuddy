@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cursor & Display Debug</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        margin: 12px;
+        font-size: 13px;
+      }
+      pre {
+        background: #f4f4f4;
+        border-radius: 4px;
+        padding: 8px;
+        overflow: auto;
+        max-height: calc(100vh - 80px);
+      }
+      .hint {
+        margin-bottom: 8px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="font-size:16px;margin:0 0 4px;">Cursor & Display Debug</h1>
+    <div class="hint">
+      Move your mouse across screens. This shows what Electron
+      <code>screen.getCursorScreenPoint()</code> and <code>getAllDisplays()</code>
+      report on your system.
+    </div>
+    <pre id="output">Waiting for data…</pre>
+
+    <script>
+      const { ipcRenderer } = require('electron');
+      const output = document.getElementById('output');
+
+      ipcRenderer.on('cursor-data', (_event, payload) => {
+        output.textContent = JSON.stringify(payload, null, 2);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "name": "clipboard-buddy",
+  "version": "0.1.0",
+  "description": "Simple cross-platform clipboard history helper with hotkey popup.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "mouse-test": "electron mouse-test.js",
+    "dist": "electron-builder"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^25.0.0"
+  },
+  "build": {
+    "appId": "com.example.clipboardbuddy",
+    "productName": "Clipboard Buddy",
+    "files": [
+      "**/*",
+      "!dist",
+      "!node_modules/.cache"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "Clipboard Buddy Setup ${version}.exe"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility"
+    }
+  }
+}
